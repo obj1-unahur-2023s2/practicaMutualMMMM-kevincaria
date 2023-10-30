@@ -1,7 +1,7 @@
 import socios.*
 
 class Actividad {
-    const idiomas = #{}
+    const idiomas = #{"español"}
 
     method agregarIdioma(unIdioma){
         idiomas.add(unIdioma)
@@ -10,8 +10,6 @@ class Actividad {
     method quitarIdioma(unIdioma){
         idiomas.remove(unIdioma)
     }
-
-    method idiomasUsados()
 
     method implicaEsfuerzo()
 
@@ -23,7 +21,7 @@ class Actividad {
 
     method idiomas() = idiomas
 
-    method esRemomendada(unSocio) = self.esInteresante() and unSocio.esAtractiva(self) and not unSocio.actividades().contains(self)
+    method esRecomendada(unSocio) = self.esInteresante() and unSocio.esAtractiva(self) and not unSocio.actividades().contains(self)
 }
 
 class Playero inherits Actividad{
@@ -41,7 +39,7 @@ class Citadino inherits Actividad {
 
     override method cantidadDias() = atracciones / 2
 
-    override method implicaEsfuerzo = atracciones.between(5,8)
+    override method implicaEsfuerzo() = atracciones.between(5,8)
 
     override method sirveParaBroncearse() = false
 
@@ -68,7 +66,7 @@ class Trekking inherits Actividad {
 }
 
 class Gimnasia inherits Actividad {
-    override method idiomas = #{"español"}
+    override method idiomas() = #{"español"}
     
     override method cantidadDias() = 1
 
@@ -76,7 +74,7 @@ class Gimnasia inherits Actividad {
 
     override method sirveParaBroncearse() = false
 
-    override method esRemomendada(unSocio) = unSocio.edad().between(20,30)
+    override method esRecomendada(unSocio) = unSocio.edad().between(20,30)
 }
 
 class Literario inherits Actividad {
@@ -90,13 +88,13 @@ class Literario inherits Actividad {
 
     method hayLibroConMasDe500Pag() = libros.any({libro => libro.cantidadPaginas() > 500 })
 
-    method sonTodosDelMismoAutor = self.autores().size() == 1
+    method sonTodosDelMismoAutor() = self.autores().size() == 1
     
     method autores() = libros.map({libro => libro.autor()}).asSet()
 
     override method sirveParaBroncearse() = false
 
-    override esRemomendada(unSocio) = unSocio.idiomasHablados().size() > 1
+    override method esRecomendada(unSocio) = unSocio.idiomasHablados().size() > 1
 }
 
 class Libro {

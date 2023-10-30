@@ -1,7 +1,7 @@
 import actividades.*
 
 class Socio {
-    const idiomasHablados = []
+    const idiomasHablados = #{}
     const actividades = []
     var property edad
     var maximoDeActividades
@@ -13,9 +13,9 @@ class Socio {
         actividades.add(unaActividad)
     }
 
-    method esAdoradorDelSol() = actividades.all({actividad => actividad.sirveParaBroncearse()})
+    method esAdoradorDelSol() = actividades.all({actividad=>actividad.sirveParaBroncearse()})
 
-    method actividadesEsforzadas() = actividades.filter({actividad => actividad.implicaEsfuerzo()})
+    method actividadesEsforzadas() = actividades.filter({actividad=>actividad.implicaEsfuerzo()})
 
     method esAtractiva(unaActividad)
 

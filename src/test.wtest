@@ -109,43 +109,44 @@ describe "test trekkin parte 1"{
 
 describe "test Roque"{
 	
-	const roque = new Socios (maximoDeActividades = 2, edad = 1)
-	const playa1 = new Playa(largo = 1000)
-	const playa2 = new Playa(largo = 2000)
+	const roque = new Coherente (maximoDeActividades = 2, edad = 1)
+	const playa1 = new Playero(largo = 1000)
+	const playa2 = new Playero(largo = 1500)
 	
 	method initialize(){
-		roque.agregarActividades(playa1)
-		roque.agregarActividades(playa2)
+		roque.agregarActividad(playa1)
+		roque.agregarActividad(playa2)
 	}
     
 	test "roque es adorador del sol"{
 		assert.that(roque.esAdoradorDelSol())
 	}
 	test"roque tiene una actividad forzada"{
-		assert.equals([playa2], roque.esforzado())
+		assert.equals(#{playa2}, roque.actividadesEsforzadas())
 	}
 	test "roque no puede hacer mas actividades"{
 		const gimnasia = new Gimnasia()
-		assert.throwsException({roque.realizarActividad(gimnasia)})
+		assert.throwsException({roque.agregarActividad(gimnasia)})
 	}
 }
 
 describe "test Ana"{
 	
-	const ana = new Socios(maximoDeActividades = 3, edad = 55)
-	const playa1 = new Playa(largo = 1000)
-	const playa2 = new Playa(largo = 2000)
+	const ana = new Coherente(maximoDeActividades = 3, edad = 55)
+	const citi1 = new Citadino(atracciones = 2)
+	const citi2 = new Citadino(atracciones = 7)
 	const gimnasia = new Gimnasia()
 	
 	method initialize(){
-		ana.agregarActividades(playa1)
-		ana.agregarActividades(playa2)
-		ana.agregarActividades(gimnasia)
+		ana.agregarActividad(citi1)
+		ana.agregarActividad(citi2)
+		ana.agregarActividad(gimnasia)
 	}
+	
 	test"ana no es adoradora del sol"{
 		assert.notThat(ana.esAdoradorDelSol())
 	}
 	test"ana tiene dos actividad forzada"{
-		assert.equals([playa2,gimnasia], ana.esforzado())
+		assert.equals(#{citi2,gimnasia}, ana.actividadesEsforzadas())
 	}
 }
