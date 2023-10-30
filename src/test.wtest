@@ -1,0 +1,151 @@
+import actividades.*
+import socios.*
+
+describe "Test Playa parte 1"{
+	
+	const playa = new Playero(largo = 1000)
+	
+	test "la playa lleva 2 dias"{
+		assert.equals(2, playa.cantidadDias())
+	}
+	test "la playa no implica esfuerzo"{
+		assert.notThat(playa.implicaEsfuerzo())
+	}
+	test"la playa broncea"{
+		assert.that(playa.sirveParaBroncearse())
+	}
+}
+
+describe "test Ciudad parte 1"{
+	
+	const excursion1 = new Citadino(atracciones = 4) 
+	const excursion2 = new Citadino(atracciones = 8)
+	
+	const tropical1 = new Tropical(atracciones = 4) 
+	const tropical2 = new Tropical(atracciones = 8)
+	const tropical3 = new Tropical(atracciones = 10)
+	
+	test "la excursion1 lleva 2 dias"{
+		assert.equals(2, excursion1.cantidadDias())
+	}
+	test "la excursion1 no implica esfuerzo"{
+		assert.notThat(excursion1.implicaEsfuerzo())
+	}
+	test"la excursion1 no broncea"{
+		assert.notThat(excursion1.sirveParaBroncearse())
+	}
+	
+	test "la tropical1 lleva 3 dias"{
+		assert.equals(3, tropical1.cantidadDias())
+	}
+	test "la tropical1 no implica esfuerzo"{
+		assert.notThat(tropical1.implicaEsfuerzo())
+	}
+	test"la tropical1 broncea"{
+		assert.that(tropical1.sirveParaBroncearse())
+	}
+	test "la excursion2 lleva 4 dias"{
+		assert.equals(4, excursion2.cantidadDias())
+	}
+	test "la excursion2 implica esfuerzo"{
+		assert.that(excursion2.implicaEsfuerzo())
+	}
+	test"la excursion2 no broncea"{
+		assert.notThat(excursion2.sirveParaBroncearse())
+	}	
+	test "la tropical2 lleva 5 dias"{
+		assert.equals(5, tropical2.cantidadDias())
+	}
+	test "la tropical2 implica esfuerzo"{
+		assert.that(tropical2.implicaEsfuerzo())
+	}
+	test"la tropical2 no broncea"{
+		assert.that(tropical2.sirveParaBroncearse())
+	}
+	test "la tropical3 lleva 6 dias"{
+		assert.equals(6, tropical3.cantidadDias())
+	}
+	test "la tropical3 implica esfuerzo"{
+		assert.notThat(tropical3.implicaEsfuerzo())
+	}
+	test"la tropical3 no broncea"{
+		assert.that(tropical3.sirveParaBroncearse())
+	}	
+}
+
+describe "test trekkin parte 1"{
+	const trekking1 = new Trekking(kilometros = 100, diasSol = 130)
+	const trekking2 = new Trekking(kilometros = 50, diasSol = 240)
+	const trekking3 = new Trekking(kilometros = 250, diasSol = 130)
+	
+	test "la trekking1 lleva 2 dias"{
+		assert.equals(2, trekking1.cantidadDias())
+	}
+	test "la trekking1  implica esfuerzo"{
+		assert.that(trekking1.implicaEsfuerzo())
+	}
+	test"la trekking1 no broncea"{
+		assert.notThat(trekking1.sirveParaBroncearse())
+	}
+	test "la trekking2 lleva 1 dias"{
+		assert.equals(1, trekking2.cantidadDias())
+	}
+	test "la trekking2  implica esfuerzo"{
+		assert.notThat(trekking2.implicaEsfuerzo())
+	}
+	test"la trekking2 no broncea"{
+		assert.that(trekking2.sirveParaBroncearse())
+	}
+	test "la trekking3 lleva 1 dias"{
+		assert.equals(5, trekking3.cantidadDias())
+	}
+	test "la trekking3  implica esfuerzo"{
+		assert.that(trekking3.implicaEsfuerzo())
+	}
+	test"la trekking3 no broncea"{
+		assert.that(trekking3.sirveParaBroncearse())
+	}	
+}
+
+describe "test Roque"{
+	
+	const roque = new Socios (maximoDeActividades = 2, edad = 1)
+	const playa1 = new Playa(largo = 1000)
+	const playa2 = new Playa(largo = 2000)
+	
+	method initialize(){
+		roque.agregarActividades(playa1)
+		roque.agregarActividades(playa2)
+	}
+    
+	test "roque es adorador del sol"{
+		assert.that(roque.esAdoradorDelSol())
+	}
+	test"roque tiene una actividad forzada"{
+		assert.equals([playa2], roque.esforzado())
+	}
+	test "roque no puede hacer mas actividades"{
+		const gimnasia = new Gimnasia()
+		assert.throwsException({roque.realizarActividad(gimnasia)})
+	}
+}
+
+describe "test Ana"{
+	
+	const ana = new Socios(maximoDeActividades = 3, edad = 55)
+	const playa1 = new Playa(largo = 1000)
+	const playa2 = new Playa(largo = 2000)
+	const gimnasia = new Gimnasia()
+	
+	method initialize(){
+		ana.agregarActividades(playa1)
+		ana.agregarActividades(playa2)
+		ana.agregarActividades(gimnasia)
+	}
+	test"ana no es adoradora del sol"{
+		assert.notThat(ana.esAdoradorDelSol())
+	}
+	test"ana tiene dos actividad forzada"{
+		assert.equals([playa2,gimnasia], ana.esforzado())
+	}
+}
